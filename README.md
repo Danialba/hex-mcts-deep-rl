@@ -1,4 +1,4 @@
-# On-Policy MCTS + Deep RL for Hex (with Tic-Tac-Toe baseline)
+# On-Policy MCTS + Deep RL for Hex 
 
 Train a Hex-playing agent by combining **Monte Carlo Tree Search (MCTS)** with a **PyTorch policy network** (ANET). The MCTS visit counts become supervised targets for the actor network, yielding an **on-policy** training loop in the spirit of AlphaZero. The code is modular (game logic, tree search, network, simulation) and configuration-driven.
 
