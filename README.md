@@ -17,7 +17,7 @@ Train a Hex-playing agent by combining **Monte Carlo Tree Search (MCTS)** with a
 - **Tic-Tac-Toe** mode for smoke-tests and algorithm sanity checks.
 
 
-## ⚙️ Requirements
+##  Requirements
 
 - Python 3.10+
 - PyTorch (2.0+ recommended)
@@ -35,7 +35,7 @@ pip install disjoint-set
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 1) **Choose your mode** in `config.py`:
 
