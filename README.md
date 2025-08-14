@@ -6,7 +6,7 @@ Train a Hex-playing agent by combining **Monte Carlo Tree Search (MCTS)** with a
 
 ---
 
-## ✨ Features
+##  Features
 
 - **On-policy MCTS**: tree policy for search; the same policy network drives rollouts.
 - **PyTorch ANET**: configurable hidden layers, optimizer, learning rate; trained with cross-entropy on MCTS visit distributions.
@@ -16,27 +16,6 @@ Train a Hex-playing agent by combining **Monte Carlo Tree Search (MCTS)** with a
 - **Baselines**: random agent and greedy options for quick comparisons.
 - **Tic-Tac-Toe** mode for smoke-tests and algorithm sanity checks.
 
----
-
-## 🧱 Project Structure
-
-```
-.
-├── anet.py                 # PyTorch actor network (policy)
-├── config.py               # All runtime/config params and mode switches
-├── game_simulator.py       # Orchestrates episodes, rollouts, training
-├── hex.py                  # Hex game rules + win detection (union-find)
-├── intelligent_agent.py    # Wraps ANET for acting (greedy/epsilon-greedy)
-├── main.py                 # Entry point (dispatches by mode in config)
-├── mctsnode.py             # MCTS node/search logic
-├── randomagent.py          # Baseline random policy
-├── tic_tac_toe.py          # Simple game for debugging/validation
-└── (optional) topp.py, rbuf.py, models/, logs/, etc.
-```
-
-> Note: The repository intentionally does **not** include any course PDFs; this README stands alone.
-
----
 
 ## ⚙️ Requirements
 
@@ -53,12 +32,6 @@ source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install torch --index-url https://download.pytorch.org/whl/cpu   # or CUDA build
 pip install disjoint-set
 ```
-
-> If you prefer, add a `requirements.txt` with:
-> ```
-> torch>=2.0
-> disjoint-set>=1.0
-> ```
 
 ---
 
@@ -97,7 +70,7 @@ python main.py
 
 ---
 
-## 🧠 Method (high level)
+##  Method (high level)
 
 1. **Self-Play Episodes**
    - For each real move: run many MCTS simulations from the current state.
@@ -137,53 +110,7 @@ All in `config.py`:
 - **Custom Game**
   - Agent choices (e.g., `"Random"` or model path `*.pth`), greedy flags, number of games.
 
-> Tip: Start with a small Hex board (4×4 or 5×5) to validate learning quickly.
 
----
-
-## 📊 Example Workflows
-
-### Train on 5×5 Hex
-```python
-# config.py
-run["train"] = True
-game_config["game"] = "hex"
-game_config["size"] = 5
-# set training[...] and anet_config[...] as desired
-```
-```bash
-python main.py
-```
-Checkpoints will be saved periodically (e.g., `models/model_<episode>_anet.pth`).
-
-### Play a Head-to-Head (model vs random)
-```python
-# config.py
-run = {"train": False, "topp": False, "custom_game": True, "oht": False}
-custom_game = {
-  "player1": "Random",
-  "player1_greedy": False,
-  "player2": "Model_5x5_for_demo/model_200_anet.pth",
-  "player2_greedy": True,
-  "number_of_games": 50,
-  "alt_starting_player": True
-}
-```
-```bash
-python main.py
-```
-
-### Run a Mini-TOPP
-```python
-# config.py
-run = {"train": False, "topp": True, "custom_game": False, "oht": False}
-# point TOPP to a set of saved ANET checkpoints
-```
-```bash
-python main.py
-```
-
----
 
 ## 🧩 Notes on Implementation
 
@@ -193,30 +120,4 @@ python main.py
 - **Rollouts**: use the current ANET, optionally with epsilon-greedy exploration.
 - Optional **critic/value head** can be bolted on later (not required); pure rollouts are supported and encouraged for clarity.
 
----
 
-## 🧪 Testing / Debugging
-
-- Switch to `game="tic_tac_toe"` to validate MCTS/ANET plumbing on a tiny state space.
-- Turn on `show_every_move=True` to watch games unfold (real moves only; rollouts are not visualized).
-- Start with few MCTS simulations for speed, then scale up.
-
----
-
-## 📦 Checkpoints & Repro
-
-- Saved policies are plain PyTorch `state_dict`s (`*.pth`).
-- You can mix deterministic (greedy) and stochastic action selection at evaluation time via config flags.
-
----
-
-## 🙏 Acknowledgements
-
-- Inspired by the AlphaZero family of methods and academic coursework on MCTS + Deep RL.
-- Hex rules and win-checking leverage a union-find approach for performance.
-
----
-
-## 📄 License
-
-MIT — see `LICENSE`.
