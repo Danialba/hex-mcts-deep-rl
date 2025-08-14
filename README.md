@@ -91,7 +91,7 @@ python main.py
 
 ---
 
-## 🛠️ Key Configuration Knobs
+## Key Configuration Knobs
 
 All in `config.py`:
 
@@ -112,7 +112,7 @@ All in `config.py`:
 
 
 
-## 🧩 Notes on Implementation
+## Notes on Implementation
 
 - **Hex** uses a union-find (disjoint set) structure to maintain connected components and check path completion efficiently.
 - **ANET** is a standard feed-forward classifier whose output dimension equals the number of possible board cells. Illegal moves are masked and the distribution renormalized before sampling/argmax during rollouts and play.
